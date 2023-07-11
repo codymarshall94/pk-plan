@@ -1,5 +1,3 @@
-import { text } from "stream/consumers";
-
 const labelColors = {
   vault: { background: "#FCE8E8", text: "#F87171" },
   swing: { background: "#CAF4EC", text: "#34D399" },
@@ -8,7 +6,7 @@ const labelColors = {
 };
 
 const Label = ({ name }: { name: string }) => {
-  const label = name.toLowerCase();
+  const label = name.toLowerCase()
   const bgColor = labelColors[label as keyof typeof labelColors].background
   const textColor = labelColors[label as keyof typeof labelColors].text
 
