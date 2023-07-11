@@ -12,7 +12,7 @@ const dateOptions = [
 
 const DateDropdown = () => {
   return (
-    <div className="bg-white flex justify-between items-center w-1/4 p-2">
+    <div className="bg-white flex justify-between items-center p-2">
       <select
         name="day"
         id="day"
