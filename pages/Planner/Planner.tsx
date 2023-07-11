@@ -17,14 +17,8 @@ interface Plan {
   style: string;
 }
 
-const tempPlan = [
-  { id: 1, type: "vault", description: "", movement: "", style: "" },
-  { id: 2, type: "swing", description: "", movement: "", style: "" },
-];
-
 const Planner = () => {
-  const [editing, setEditing] = useState(false);
-  const [plan, setPlan] = useState<Plan[]>(tempPlan);
+  const [plan, setPlan] = useState<Plan[]>([]);
   const { setOpenModal } = useContext(ManageModal);
 
   const handleOpenModal = () => {
@@ -40,10 +34,6 @@ const Planner = () => {
     newPlan.push(movementObj);
     setPlan(newPlan);
     handleCloseModal();
-  };
-
-  const handleEditMovement = (id: number) => {
-    setEditing(true);
   };
 
   const handleDeleteMovement = (id: number) => {
