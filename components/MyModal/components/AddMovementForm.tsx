@@ -2,16 +2,23 @@
 
 import { useState } from "react";
 
+interface Form {
+  type: string;
+  moveDescription: string;
+  style: string;
+}
+
+const initialFormState = {
+  type: "vault",
+  moveDescription: "",
+  style: "line",
+};
+
 const AddMovementForm = ({ onAddMovement }: { onAddMovement: any }) => {
-  const [inputs, setInputs] = useState({
-    type: "vault",
-    moveDescription: "",
-    style: "line",
-  });
+  const [inputs, setInputs] = useState<Form>(initialFormState);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const movementObj = {
       id: Math.floor(Math.random() * 10000),
       type: inputs.type,
@@ -20,11 +27,7 @@ const AddMovementForm = ({ onAddMovement }: { onAddMovement: any }) => {
       style: inputs.style,
     };
     onAddMovement(movementObj);
-    setInputs({
-      type: "",
-      moveDescription: "",
-      style: "",
-    });
+    setInputs(initialFormState);
   };
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -44,7 +47,9 @@ const AddMovementForm = ({ onAddMovement }: { onAddMovement: any }) => {
   return (
     <form className="mt-2" onSubmit={handleSubmit}>
       <div className="flex flex-col mb-2">
-        <label htmlFor="type">What movement category would you like to teach?</label>
+        <label htmlFor="type">
+          What movement category would you like to teach?
+        </label>
         <select
           name="type"
           id="type"
@@ -66,7 +71,7 @@ const AddMovementForm = ({ onAddMovement }: { onAddMovement: any }) => {
         <input
           type="text"
           className="border-2 border-black p-4 w-full"
-          placeholder="How will you teach this?"
+          placeholder="Example. Wall run to cat leap to precision"
           id="moveDescription"
           onChange={handleMoveDescriptionChange}
         />
