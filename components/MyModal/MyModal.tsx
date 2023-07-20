@@ -1,23 +1,25 @@
 "use client";
 
-import React, { Fragment, useContext, useRef, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useRef } from "react";
 import { ManageModal } from "@/contexts/ModalContext";
 import { Dialog, Transition } from "@headlessui/react";
 import { createPortal } from "react-dom";
 
-const MyModal = ({ children }: React.PropsWithChildren) => {
+const MyModal = ({ children }: { children: React.ReactNode }) => {
   const [mounted, setMounted] = React.useState(false);
-  const { setOpenModal, openModal } = useContext(ManageModal);
-  const modalRef = useRef();
+  const { handleCloseModal, setOpenModal, openModal } = useContext(ManageModal);
 
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
+  const modalRef = useRef();
+
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
       setOpenModal(false);
+      handleCloseModal();
     }
   };
 
@@ -25,7 +27,13 @@ const MyModal = ({ children }: React.PropsWithChildren) => {
     ? createPortal(
         <>
           <Transition appear show={openModal} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Dialog
+              as="div"
+              className="relative z-10"
+              onClose={(e) => {
+                closeModal(e);
+              }}
+            >
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
