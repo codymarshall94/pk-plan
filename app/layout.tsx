@@ -1,10 +1,7 @@
-import ManageModalProvider from "@/contexts/ModalContext";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Sidebar from "@/components/Sidebar/Sidebar";
-
-const inter = Inter({ subsets: ["latin"] });
+import Application from "@/pages/Application";
+import ProtectedRoute from "@/pages/ProtectedRoute";
 
 export const metadata: Metadata = {
   title: "PKPLAN",
@@ -18,12 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ManageModalProvider>
+      <Application>
         <body className="flex">
-          <Sidebar />
-          {children}
+          <ProtectedRoute>
+            {children}
+          </ProtectedRoute>
         </body>
-      </ManageModalProvider>
+      </Application>
     </html>
   );
 }
